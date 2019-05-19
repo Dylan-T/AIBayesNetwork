@@ -1,5 +1,4 @@
 import sys
-import numpy as np
 
 # Take inputs
 if len(sys.argv) == 2:
@@ -50,10 +49,26 @@ for sample in trainData:
     table[len(table)-1][sample[len(sample)-1]] = table[len(table)-1][sample[len(sample)-1]] + 1  # add to class count
 
 # Classify:
-# calculate P(class1|data)  == P(data|class1)*P(class1)
-# calculate P(class2| data) == P(data|class2)*P(class2)
-# return class with higher P
 
+for sample in testData:
+    # calculate P(class1|data)  == P(data|class1)*P
+    p1 = 1
+    i = 0
+    while i < len(table) - 1:
+        i = i + sample[int(i / 2)]
+        p1 = p1 * table[i][0] / table[len(table)-1][0]
+        i = i + 2 - (i % 2)  # iterate to next feature
+    p1 = p1*(table[len(table)-1][0]/(table[len(table)-1][0]+table[len(table)-1][1]))
 
-# How to deal with zero occurence:
-# initialise table to contain small constant
+    # calculate P(class1|data)  == P(data|class1)*P
+    p2 = 1
+    i = 0
+    while i < len(table) - 1:
+        i = i + sample[int(i / 2)]
+        p2 = p2 * table[i][1] / table[len(table)-1][1]
+        i = i + 2 - (i % 2)  # iterate to next feature
+    p2 = p2*(table[len(table)-1][1]/(table[len(table)-1][0]+table[len(table)-1][1]))
+
+    # return class with higher P
+    print(p1)
+    print(p2)
