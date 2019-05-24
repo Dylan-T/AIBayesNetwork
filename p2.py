@@ -74,3 +74,7 @@ for sample in test:
     results.append(classify(sample, pTable))
 
 print(results)
+open("sampleoutput.txt", "w")
+# 1 - spam
+# 0 - non spam
+# JJ results [1, 0, 0, 1, 0, 0, 1, 0, 0, 1]
